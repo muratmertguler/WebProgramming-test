@@ -1,5 +1,3 @@
-from cmath import log
-from unicodedata import name
 from flask import Flask , redirect, url_for
 app = Flask(__name__)
 
@@ -37,21 +35,6 @@ def hello_user(name):
 if __name__ == '__main__':
    app.run(debug = True)
 
-
-
-
-# http://localhost:5000/admin
-# venv\Scripts\activate -> venv activetion
-
-
-
 #---------------------------------------------------------#
-"""
-a1 = "asdas"
-log_txt = open("log.txt","a")
-log_txt.write("admin kullanicisi girisi yaptı \n" + a1)
-log_txt.close()
-
-log_txt = open("log.txt","r")
-print(log_txt.read())
-"""
+# http://localhost:5000/admin
+# venv\Scripts\activate 
