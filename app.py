@@ -10,8 +10,6 @@ def admin():
    log_txt = open("log.txt","a")
    log_txt.write("admin kullanicisi girisi yaptı \n")
    log_txt.close()
-   #log_txt = open("log.txt","r")
-   #print(log_txt.read())
    return "admin"
 
 @app.route('/guest/<guest>')
@@ -19,8 +17,6 @@ def guest(guest):
    log_txt = open("log.txt","a")
    log_txt.write("guest : " + guest + "\n" )
    log_txt.close()
-   #log_txt = open("log.txt","r")
-   #print(log_txt.read())
    return "guest : %s" % guest 
 
 
