@@ -1,10 +1,3 @@
-###################################################################
-#
-# Models/models.py: json dosyası okuma, json dosyası yazma, json dosyasından veri çekme
-# işlemlerinin yapıldığı python dosyası. 
-# 
-###################################################################
-
 import json
 import uuid
 import datetime
@@ -18,12 +11,10 @@ def read_json(filename):
 
 def write_json(filename, data):
     with open(filename, 'w') as f:
-        #python objesini json nesnesine serialise et.
-        #4 indentli formatlı olarak yazdırmasını sağla.
         json_obj = json.dumps(data, indent=4)
         f.write(json_obj)
-        #dene
-        #json.dump(data, f)
+
+    
 #------------------------------------------------
 
 def creatTime():
