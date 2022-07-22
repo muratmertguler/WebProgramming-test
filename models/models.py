@@ -13,8 +13,6 @@ def write_json(filename, data):
     with open(filename, 'w') as f:
         json_obj = json.dumps(data, indent=4)
         f.write(json_obj)
-
-    
 #------------------------------------------------
 
 def creatTime():
@@ -44,7 +42,6 @@ def addUser(name, password):
     with open(json_files_pathway, "w") as file:
         json.dump(data,file,indent=4)
 #------------------------------------------------
-
 
 write_json(json_files_pathway,
 [{"id" : uuid_generater() ,"username" : "ali", "password": "12345", "creat_on": creatTime()},
