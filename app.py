@@ -1,9 +1,10 @@
-from flask import Flask , redirect, url_for
+from flask import Flask , redirect, url_for, request, render_template
+from datetime import datetime, date, time, timezone
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-   return "my firs web application"
+def index():
+    return  render_template("index.html")
 
 @app.route('/admin')
 def admin():
@@ -19,7 +20,6 @@ def guest(guest):
    log_txt.close()
    return "guest : %s" % guest 
 
-
 @app.route('/user/<name>')
 def hello_user(name):
    if name =='admin':
@@ -27,6 +27,17 @@ def hello_user(name):
    else:
        return redirect(url_for('guest',guest = name)) 
 
+@app.route('/users', methods = ["POST", "GET"])
+def users():
+   if request.method == 'POST':
+
+      name = request.form.get('name')
+      surname = request.form.get('surname')
+      username = request.form.get('username')
+      password = request.form.get('password')
+      return render_template("users.html",name=name, surname=surname, username=username, password=password)
+   else:
+      return render_template("users.html",hata="hata oluştu")
 
 if __name__ == '__main__':
    app.run(debug = True)
@@ -34,3 +45,4 @@ if __name__ == '__main__':
 #---------------------------------------------------------#
 # http://localhost:5000/admin
 # venv\Scripts\activate 
+
