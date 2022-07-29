@@ -1,10 +1,34 @@
-from flask import Flask , redirect, url_for, request, render_template
-from datetime import datetime, date, time, timezone
+from flask    import Flask , request, jsonify
+from models import models 
+
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return  render_template("index.html")
+@app.route('/users/<user_id>', methods = ["POST"])
+def getUser(user_id):
+   data = request.json
+   data = models.readJson(models.json_files_path)
+   for i in range(0,len(data)):
+      if data[i]["id"] == user_id:
+         print(data[i])
+         break
+      
+      else:
+         print("There is no user with this ID")
+         break
+   return jsonify(data), 200
+
+@app.route('/newuser', methods=["POST"])
+def newUser():
+   data = request.json
+   print(data["name"],data["password"])
+   models.addUser(data["name"],data["password"])
+   return jsonify(data), 200
+
+@app.route('/readUser', methods=["POST"])
+def postTest():
+   data = models.readJson(models.json_files_path)
+   print(data)
+   return jsonify(data), 200
 
 @app.route('/admin')
 def admin():
@@ -20,29 +44,10 @@ def guest(guest):
    log_txt.close()
    return "guest : %s" % guest 
 
-@app.route('/user/<name>')
-def hello_user(name):
-   if name =='admin':
-      return redirect(url_for('admin'))
-   else:
-       return redirect(url_for('guest',guest = name)) 
-
-@app.route('/users', methods = ["POST", "GET"])
-def users():
-   if request.method == 'POST':
-
-      name = request.form.get('name')
-      surname = request.form.get('surname')
-      username = request.form.get('username')
-      password = request.form.get('password')
-      return render_template("users.html",name=name, surname=surname, username=username, password=password)
-   else:
-      return render_template("users.html",hata="hata oluştu")
-
 if __name__ == '__main__':
    app.run(debug = True)
 
-#---------------------------------------------------------#
+#------------------------------------------------------#
 # http://localhost:5000/admin
 # venv\Scripts\activate 
-
+# source ./venv/bin/activate
