@@ -1,7 +1,11 @@
-from flask    import Flask , request, jsonify
+from flask  import Flask, render_template , request, jsonify
 from models import models 
 
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+   return "main page"
 
 @app.route('/users/<user_id>', methods = ["POST"])
 def getUser(user_id):
@@ -43,6 +47,14 @@ def guest(guest):
    log_txt.write("guest : " + guest + "\n" )
    log_txt.close()
    return "guest : %s" % guest 
+
+@app.route('/login', methods = ["GET","POST"])
+def login():
+   username = request.form.get("username")
+   password = request.form.get("password")
+   print("save new user name:{} password:{}".format(username,password))
+   models.addUser(username,password)
+   return render_template("login.html")
 
 if __name__ == '__main__':
    app.run(debug = True)
